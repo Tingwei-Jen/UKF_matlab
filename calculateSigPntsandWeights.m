@@ -16,11 +16,10 @@ lambda = apha*apha*nx_aug-nx_aug;
 %% Sigma points
 Sigma_Points = zeros(nx_aug, 2*nx_aug+1);
 Sigma_Points(:,1) = State_aug;
-
+A = chol(P_aug,'lower')
 for i = 1:nx_aug
-    a = (lambda+nx_aug)*P_aug(:,i);
-    Sigma_Points(:,i+1) = State_aug + sqrt(a);
-    Sigma_Points(:,i+1+nx_aug) = State_aug -sqrt(a);
+    Sigma_Points(:,i+1) = State_aug + sqrt(lambda+nx_aug)*A(:,i);
+    Sigma_Points(:,i+1+nx_aug) = State_aug -sqrt(lambda+nx_aug)*A(:,i);
 
 end
 
